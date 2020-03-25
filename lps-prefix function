@@ -1,0 +1,36 @@
+using namespace std;
+#include<bits/stdc++.h>
+int main()
+{
+    string inp;
+    cin>>inp;
+    int i=1;
+    int j=0;
+    vector <int> lps;
+    int size1=inp.size();
+    lps.resize(size1);
+    lps[0]=0;
+    while(i<inp.size())
+    {
+        if(inp[i]==inp[j])
+        {
+            lps[i]=j+1;
+            i++;
+            j++;
+        }
+        else
+        {
+            if(j!=0)
+            {
+                j=lps[i-1];
+            }
+            else
+            {
+                lps[i]=0;
+                i++;
+            }
+        }
+    }
+    cout<<lps[size1-1]<<endl;
+    return 0;
+}
