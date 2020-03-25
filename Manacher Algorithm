@@ -1,0 +1,47 @@
+using namespace std;
+#include<bits/stdc++.h>
+int main()
+{
+    string ans;//input string
+    cin>>ans;
+    string str="";//modified string for manacher
+    str+='@';//string starting
+    str+='#';
+    for(int i=0;i<ans.size();i++)
+    {
+        str+=ans[i];
+        str+='#';
+    }
+    str+='$';//string ending
+    cout<<str<<endl;
+    vector <int> man;//store size of palindromic substring with centre at i
+    man.resize(str.size());
+    man.assign(str.size(),0);
+    int c=0;//centre
+    int r=0;//right boundary
+    for(int i=1;i<str.size()-1;i++)
+    {
+        int mirr = 2*c-i;
+        if(i<r)
+        {
+            man[i]=min(r-i,man[mirr]);//two conditions for mirror element
+        }
+        while(str[i+(1+man[i])]==str[i-(1+man[i])])//expand along centre
+        {
+            man[i]++;
+        }
+        if(i+man[i]>r)//if centre out of range
+        {
+            c=i;
+            r=i+man[i];
+        }
+    }
+    int maxm=INT_MIN;//finding maximum value
+    for(int i=0;i<man.size();i++)
+    {
+        if(man[i]>maxm)
+        maxm=man[i];
+    }
+    cout<<"maximum length is "<<maxm<<endl;
+    return 0;
+}
