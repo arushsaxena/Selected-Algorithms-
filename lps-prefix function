@@ -22,7 +22,7 @@ int main()
         {
             if(j!=0)
             {
-                j=lps[i-1];
+                j=lps[j-1];
             }
             else
             {
